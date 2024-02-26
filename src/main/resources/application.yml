@@ -1,0 +1,30 @@
+app:
+  name: Project Template
+  version: 1.0.0
+
+
+spring:
+  profiles:
+    active: dev
+  # Springboot2.6以后将SpringMVC 默认路径匹配策略从AntPathMatcher 更改为PathPatternParser，导致出错
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  servlet:
+    multipart:
+      max-file-size: 5120MB
+      max-request-size: 5120MB
+
+# 应用服务 WEB 访问端口
+server:
+  port: 8888
+#  servlet:
+#    encoding:
+#      charset: UTF-8
+#      force-response: true # 修改 SpringBoot 默认响应为 utf-8 (原: charset=iso-8859-1)
+
+swagger:
+  enabled: true
+
+
+
