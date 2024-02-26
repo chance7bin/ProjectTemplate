@@ -39,7 +39,7 @@ public class TestController {
         };
         ThreadPoolManager.instance().execute(task);
 
-        return ApiResponse.success("test");
+        return ApiResponse.success("test success");
     }
 
 }
