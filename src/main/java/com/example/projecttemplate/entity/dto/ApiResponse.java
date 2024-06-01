@@ -2,7 +2,9 @@ package com.example.projecttemplate.entity.dto;
 
 
 
+import com.alibaba.fastjson2.JSON;
 import com.example.projecttemplate.constant.HttpStatus;
+import com.example.projecttemplate.exception.ServiceException;
 import com.example.projecttemplate.utils.StringUtils;
 
 import java.util.HashMap;
@@ -170,11 +172,45 @@ public class ApiResponse extends HashMap<String, Object> {
         return this;
     }
 
+    /**
+     * JSONObject转ApiResponse
+     *
+     * @return 解析结果
+     */
+    public static ApiResponse parseObject(Object object){
+        return JSON.parseObject(JSON.toJSONString(object), ApiResponse.class);
+    }
+
+    /**
+     * 字符串转ApiResponse
+     *
+     * @return 解析结果
+     */
+    public static ApiResponse parseObject(String rspStr){
+        if (StringUtils.isEmpty(rspStr))
+        {
+            throw new ServiceException("请求接口无响应");
+        }
+        return JSON.parseObject(rspStr, ApiResponse.class);
+    }
+
+    /**
+     * 判断请求是否成功
+     *
+     * @param response 响应
+     * @return 结果
+     */
     public static boolean reqSuccess(ApiResponse response){
         return (Integer) response.get(ApiResponse.CODE_TAG) == HttpStatus.SUCCESS;
     }
 
-    public static HashMap<String, Object> getResponseData(ApiResponse response){
+    /**
+     * 获取响应数据
+     *
+     * @param response 响应
+     * @return 数据
+     */
+    public static HashMap<String, Object> getRspData(ApiResponse response){
         return (HashMap<String, Object>) response.get(ApiResponse.DATA_TAG);
     }
 
